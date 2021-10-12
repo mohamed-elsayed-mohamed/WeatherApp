@@ -46,6 +46,10 @@
                            Foreground="#f4f4f8"
                            FontSize="18"
                            Margin="20,0"/>
+                <TextBlock Text="{Binding HasPrecipitation}"
+                           Foreground="#f4f4f8"
+                           FontSize="16"
+                           Margin="20,0"/>
             </StackPanel>
             <TextBlock Grid.Column="1"
                        VerticalAlignment="Center"

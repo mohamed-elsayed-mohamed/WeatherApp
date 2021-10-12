@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using WeatherApp.Model;
 using WeatherApp.ViewModel.Commands;
 using WeatherApp.ViewModel.Helpers;
@@ -49,7 +50,7 @@ namespace WeatherApp.ViewModel
             {
                 selectedCity = value;
                 OnPropertyChanged("SelectedCity");
-                GetCurrentConditions();
+                _ = GetCurrentConditionsAsync();
             }
         }
 
@@ -81,7 +82,7 @@ namespace WeatherApp.ViewModel
             Cities = new ObservableCollection<City>();
         }
 
-        private async void GetCurrentConditions()
+        private async Task GetCurrentConditionsAsync()
         {
             Query = string.Empty;
             Cities.Clear();
