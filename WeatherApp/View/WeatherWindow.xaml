@@ -20,11 +20,11 @@
             <TextBox Text="{Binding Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Margin="0,10"
                     Content="Search" CommandParameter="{Binding Query}" Command="{Binding SearchCommand}"/>
-            <ListView>
+            <ListView ItemsSource="{Binding Cities}" SelectedValue="{Binding SelectedCity}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock/>
+                            <TextBlock Text="{Binding LocalizedName}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
