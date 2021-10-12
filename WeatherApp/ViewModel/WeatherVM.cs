@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.Commands;
+using WeatherApp.ViewModel.Helpers;
 
 namespace WeatherApp.ViewModel
 {
@@ -16,8 +18,8 @@ namespace WeatherApp.ViewModel
         public string Query
         {
             get { return query; }
-            set 
-            { 
+            set
+            {
                 query = value;
                 OnPropertyChanged("Query");
             }
@@ -47,6 +49,37 @@ namespace WeatherApp.ViewModel
             }
         }
 
+        public SearchCommand SearchCommand { set; get; }
+
+        public WeatherVM()
+        {
+            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+                SelectedCity = new City
+                {
+                    LocalizedName = "Alexandria, Egypt"
+                };
+
+                CurrentConditions = new CurrentConditions
+                {
+                    WeatherText = "Clear",
+                    Temperature = new Temperature
+                    {
+                        Metric = new Units()
+                        {
+                            Value = 21
+                        }
+                    },
+                };
+            }
+
+            SearchCommand = new SearchCommand(this);
+        }
+
+        public async void MakeQuery()
+        {
+            List<City> cities = await AccuWeatherHelper.GetCities(Query);
+        }
 
         private void OnPropertyChanged(string propertyName)
         {
