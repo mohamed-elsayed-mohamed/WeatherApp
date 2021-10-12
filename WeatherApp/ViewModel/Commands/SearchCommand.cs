@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using System.Linq;
 
 namespace WeatherApp.ViewModel.Commands
 {
@@ -9,7 +10,11 @@ namespace WeatherApp.ViewModel.Commands
     {
         private WeatherVM weatherVM { set; get; }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public SearchCommand(WeatherVM weatherVM)
         {
@@ -18,6 +23,10 @@ namespace WeatherApp.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
+            string query = parameter as string;
+
+            if (string.IsNullOrWhiteSpace(query))
+                return false;
             return true;
         }
 
